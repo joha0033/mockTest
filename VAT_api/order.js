@@ -1,5 +1,17 @@
-function orderTotal(fetch, order) {
-  fetch('https://vatapi.com/v1/country-code-check?code=' + order.country)
+//taxJar key 6f13694af63fecbc3b8de82cc6a1e1f4
+
+function orderTotal(fetch, process, order) {
+  if(order.country){
+    return fetch('https://vatapi.com/v1/country-code-check?code=' + order.country, {
+      headers: {
+        apikey: process.env.VAT_API_KEY
+      }
+    })
+      .then(response => response.json())
+      .then(data => data.rates.standard.value)
+      .then(vat => order.items.reduce((prev, cur) =>
+        cur.price * (cur.quantity || 1) + prev, 0) * (1+vat/100))
+  }
   return Promise.resolve(order.items.reduce((prev, cur) =>
     cur.price * (cur.quantity || 1) + prev, 0))
 }
