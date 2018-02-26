@@ -1,0 +1,15 @@
+{
+  "name": "mocktest",
+  "version": "1.0.0",
+  "description": "mocking test cases with country code VAT API",
+  "main": "order.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "joha0033@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^22.4.2",
+    "node-fetch": "^2.0.0"
+  }
+}
